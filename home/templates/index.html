@@ -1,0 +1,39 @@
+{% extends "base.html" %} 
+{% block start %}
+
+  <div class = "container mt-5">
+    <a href = "{% url 'send_email' %}" class = "btn btn-primary">Send E-mail</a>
+  </div>
+    <p>This is the index page</p>
+    <h1>This is a just a test</h1>
+    <p>This is a new para</p>
+    <table>
+        <tr>
+          <th>S.No</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Can Vote?</th>
+        </tr>
+        {% for people in peoples %}
+
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{people.Name}}</td>
+          <td>{{people.Age}}</td>
+          <td
+            {% if people.Age >= 18 %}
+            style = "background:green;"
+            {% else %}
+            style = "background:red;"
+            {% endif %}>
+            {% if people.Age >= 18 %}
+            👍
+            {% else %}
+            👎
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      <a href = "/contact/">Contact|</a><a href = "/about/">About</a>
+{% endblock %}

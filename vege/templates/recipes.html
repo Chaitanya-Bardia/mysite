@@ -1,0 +1,104 @@
+{% extends "base.html" %} 
+{% block start %}
+{{req.user}}
+<div class = "container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 align = 'center'>Add Recipe</h2>
+        <hr>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Recipe Name</label>
+          <input name = "rname" required type="text" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Recipe Description</label>
+          <textarea class = "form-control" name = "rdescription"  required ></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Recipe Image</label>
+            <input name = "rimage" type="file" class="form-control">
+          </div>
+        <button type="submit" class="btn btn-success">Add Recipe</button>
+      </form>
+
+      <div class="mt-5">
+      <div class="mx-auto col-6">
+        <form>
+        <hr>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Search Recipe</label>
+          <input name = "search"  type="text" class="form-control">
+        </div>
+        <button type ="submit" class="search">SEARCH</button>
+        <hr>
+      </form>
+      </div>
+      </div>
+      <table class="table mt-5">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Recipe Name</th>
+            <th scope="col">Recipe Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes%}
+
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{recipe.rname}}</td>
+            <td>{{recipe.rdescription}}</td>
+            <td><img src="/media/{{recipe.rimage}}" style = "height: 100px; width : 80px"></td>
+            <td>
+                <a href = "/deleterecipe/{{recipe.id}}/" class = "delete m-20">DELETE</a>
+                <a href = "/updaterecipe/{{recipe.slug}}/" class = "update m-20">UPDATE</a>
+                <style>
+                    .delete{
+                        border :none ;
+                        color :white;
+                        background-color: #008cff;
+                        border-radius: 18px;
+                        padding-left: 5px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        padding-right: 5px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-decoration: none;
+                      }
+                      .update{
+                        border :none ;
+                        color :white;
+                        background-color: lightgreen;
+                        border-radius: 18px;
+                        padding-left: 5px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        padding-right: 5px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-decoration: none;
+                      }
+                      .search{
+                        border :none ;
+                        color :white;
+                        background-color: darkcyan;
+                        padding-left: 5px;
+                        padding-top: 5px;
+                        padding-bottom: 5px;
+                        padding-right: 5px;
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-decoration: none;
+                      }
+                </style>
+            </td>
+          </tr>
+        {%endfor%}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
